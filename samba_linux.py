@@ -3,7 +3,6 @@ from daemon import runner
 import time
 import lockfile
 
-#mcdasl related imports
 from pprint import pprint
 import concurrent.futures
 
@@ -12,7 +11,7 @@ import libCloudStoragePy
 
 #from parse import *
 
-NFS_CONFIG = "/etc/samba/smb.conf" #samba config file
+SAMBA_CONFIG = "/etc/samba/smb.conf" #samba config file
 TARGET_FILE = "linux_samba.txt" #file where we're going to write all parsed data
 DELAY = 30 #daemon's delay in seconds
 FILE_NAME = "/home/ubuntu/linux_samba.txt"
@@ -30,7 +29,7 @@ class App():
     def parse(self):
         #items = []
 
-        with open(NFS_CONFIG) as f, open(TARGET_FILE, "w") as g:
+        with open(SAMBA_CONFIG) as f, open(TARGET_FILE, "w") as g:
             lines = tuple(f)
 
             i = 0
