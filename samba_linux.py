@@ -6,7 +6,7 @@ import lockfile
 from pprint import pprint
 import concurrent.futures
 
-sys.path.append('/home/ubuntu/netapp/netapp-mcdasl/.out/lib/Linux/i686')
+sys.path.append('/home/stack/netapp-mcdasl/.out/lib/Linux/x86_64/')
 import libCloudStoragePy
 
 #from parse import *
@@ -14,7 +14,6 @@ import libCloudStoragePy
 SAMBA_CONFIG = "/etc/samba/smb.conf" #samba config file
 TARGET_FILE = "linux_samba.txt" #file where we're going to write all parsed data
 DELAY = 30 #daemon's delay in seconds
-FILE_NAME = "/home/ubuntu/linux_samba.txt"
 
 mcdasl = libCloudStoragePy.MCDASLInterfaceLight()
 
@@ -79,11 +78,14 @@ class App():
         try:
             status = mcdasl._open( libCloudStoragePy.CT_AMAZON,
                     #"172.18.16.180",
-                    "127.0.0.1",
-                    35357,
+                    "s3.amazonaws.com",
+                    #35357,
+                    80,
                     0,
-                    "admin:admin",
-                    "2d33673cac0f456c",
+                    "AKIAJUUSO63UI7YUAIBA",
+                    #"admin:admin",
+                    "btI6dn8Q3ipM53/G8N+5LG/CxlqFrxWuZkppZL7t",
+                    #"2d33673cac0f456c",
                     "",
                     4,
                     2
@@ -94,7 +96,7 @@ class App():
             status = mcdasl.createContainer("volTest1", "")
             if( status <> libCloudStoragePy.OperationStatus.OS_OK ):
                 raise RuntimeError( "Failed to create container: {}".format(status))
-            objName1 = libCloudStoragePy.ObjectName("volTest1", FILENAME)
+            objName1 = libCloudStoragePy.ObjectName("volTest1", TARGET_FILE)
             status = mcdasl.upload( objName1, "Some object data to upload")
             if( status <> libCloudStoragePy.OperationStatus.OS_OK ):
                 raise RuntimeError( "Failed to upload : {}".format(status))
